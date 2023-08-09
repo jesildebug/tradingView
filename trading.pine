@@ -1,0 +1,303 @@
+//@version=5
+indicator("90min Cycles"
+  , overlay          = true
+  , max_bars_back    = 500
+  , max_lines_count  = 500
+  , max_boxes_count  = 500
+  , max_labels_count = 500)
+//------------------------------------------------------------------------------
+//Settings
+//-----------------------------------------------------------------------------{
+///Session A
+show_sesa = input(true, '', inline='sesa', group='Session A')
+sesa_txt = input('Asian A', '', inline='sesa', group='Session A')
+sesa_ses = input.session('1800-1930', '', inline='sesa', group='Session A')
+sesa_css = input.color(#2962ff, '', inline='sesa', group='Session A')
+sesa_range = input(true, 'Range', inline='sesa_overlays', group='Session A')
+
+///Session B
+show_sesb = input(true, '', inline='sesb', group='Session B')
+sesb_txt = input('Asian M', '', inline='sesb', group='Session B')
+sesb_ses = input.session('1930-2100', '', inline='sesb', group='Session B')
+sesb_css = input.color(#f23645, '', inline='sesb', group='Session B')
+sesb_range = input(true, 'Range', inline='sesb_overlays', group='Session B')
+
+///Session C
+show_sesc = input(true, '', inline='sesc', group='Session C')
+sesc_txt = input('Asian D', '', inline='sesc', group='Session C')
+sesc_ses = input.session('2100-2230', '', inline='sesc', group='Session C')
+sesc_css = input.color(#4caf50, '', inline='sesc', group='Session C')
+sesc_range = input(true, 'Range', inline='sesc_overlays', group='Session C')
+
+///Session D
+show_sesd = input(true, '', inline='sesd', group='Session D')
+sesd_txt = input('Asian R', '', inline='sesd', group='Session D')
+sesd_ses = input.session('2230-0000', '', inline='sesd', group='Session D')
+sesd_css = input.color(#b2b5be, '', inline='sesd', group='Session D')
+sesd_range = input(true, 'Range', inline='sesd_overlays', group='Session D')
+
+///Session E
+show_sese = input(true, '', inline='sese', group='Session E')
+sese_txt = input('London A', '', inline='sese', group='Session E')
+sese_ses = input.session('0000-0130', '', inline='sese', group='Session E')
+sese_css = input.color(#2962ff, '', inline='sese', group='Session E')
+sese_range = input(true, 'Range', inline='sese_overlays', group='Session E')
+
+///Session F
+show_sesf = input(true, '', inline='sesf', group='Session F')
+sesf_txt = input('London M', '', inline='sesf', group='Session F')
+sesf_ses = input.session('0130-0300', '', inline='sesf', group='Session F')
+sesf_css = input.color(#f23645, '', inline='sesf', group='Session F')
+sesf_range = input(true, 'Range', inline='sesf_overlays', group='Session F')
+
+///Session G
+show_sesg = input(true, '', inline='sesg', group='Session G')
+sesg_txt = input('London D', '', inline='sesg', group='Session G')
+sesg_ses = input.session('0300-0430', '', inline='sesg', group='Session G')
+sesg_css = input.color(#4caf50, '', inline='sesg', group='Session G')
+sesg_range = input(true, 'Range', inline='sesg_overlays', group='Session G')
+
+///Session H
+show_sesh = input(true, '', inline='sesh', group='Session H')
+sesh_txt = input('London R', '', inline='sesh', group='Session H')
+sesh_ses = input.session('0430-0600', '', inline='sesh', group='Session H')
+sesh_css = input.color(#b2b5be, '', inline='sesh', group='Session H')
+sesh_range = input(true, 'Range', inline='sesh_overlays', group='Session H')
+
+///Session I
+show_sesi = input(true, '', inline='sesi', group='Session I')
+sesi_txt = input('NY A', '', inline='sesi', group='Session I')
+sesi_ses = input.session('0600-0730', '', inline='sesi', group='Session I')
+sesi_css = input.color(#2962ff, '', inline='sesi', group='Session I')
+sesi_range = input(true, 'Range', inline='sesi_overlays', group='Session I')
+
+///Session J
+show_sesj = input(true, '', inline='sesj', group='Session J')
+sesj_txt = input('NY M', '', inline='sesj', group='Session J')
+sesj_ses = input.session('0730-0900', '', inline='sesj', group='Session J')
+sesj_css = input.color(#f23645, '', inline='sesj', group='Session J')
+sesj_range = input(true, 'Range', inline='sesj_overlays', group='Session J')
+
+///Session K
+show_sesk = input(true, '', inline='sesk', group='Session K')
+sesk_txt = input('NY D', '', inline='sesk', group='Session K')
+sesk_ses = input.session('0900-1030', '', inline='sesk', group='Session K')
+sesk_css = input.color(#4caf50, '', inline='sesk', group='Session K')
+sesk_range = input(true, 'Range', inline='sesk_overlays', group='Session K')
+
+///Session L
+show_sesl = input(true, '', inline='sesl', group='Session L')
+sesl_txt = input('NY R', '', inline='sesl', group='Session L')
+sesl_ses = input.session('1030-1200', '', inline='sesl', group='Session L')
+sesl_css = input.color(#b2b5be, '', inline='sesl', group='Session L')
+sesl_range = input(true, 'Range', inline='sesl_overlays', group='Session L')
+
+///Session M
+show_sesm = input(true, '', inline='sesm', group='Session M')
+sesm_txt = input('PM A', '', inline='sesm', group='Session M')
+sesm_ses = input.session('1200-1330', '', inline='sesm', group='Session M')
+sesm_css = input.color(#2962ff, '', inline='sesm', group='Session M')
+sesm_range = input(true, 'Range', inline='sesm_overlays', group='Session M')
+
+///Session N
+show_sesn = input(true, '', inline='sesn', group='Session N')
+sesn_txt = input('PM M', '', inline='sesn', group='Session N')
+sesn_ses = input.session('1330-1500', '', inline='sesn', group='Session N')
+sesn_css = input.color(#f23645, '', inline='sesn', group='Session N')
+sesn_range = input(true, 'Range', inline='sesn_overlays', group='Session N')
+
+///Session O
+show_seso = input(true, '', inline='seso', group='Session O')
+seso_txt = input('PM D', '', inline='seso', group='Session O')
+seso_ses = input.session('1500-1630', '', inline='seso', group='Session O')
+seso_css = input.color(#4caf50, '', inline='seso', group='Session O')
+seso_range = input(true, 'Range', inline='seso_overlays', group='Session O')
+
+///Session P
+show_sesp = input(true, '', inline='sesp', group='Session P')
+sesp_txt = input('PM R', '', inline='sesp', group='Session P')
+sesp_ses = input.session('1630-1800', '', inline='sesp', group='Session P')
+sesp_css = input.color(#b2b5be, '', inline='sesp', group='Session P')
+sesp_range = input(true, 'Range', inline='sesp_overlays', group='Session P')
+
+///Session Q
+show_sesq = input(true, '', inline='sesq', group='Session Q')
+sesq_txt = input('Daily A', '', inline='sesq', group='Session Q')
+sesq_ses = input.session('1800-0000', '', inline='sesq', group='Session Q')
+sesq_css = input.color(#b2b5be, '', inline='sesq', group='Session Q')
+sesq_range = input(true, 'Range', inline='sesq_overlays', group='Session Q')
+
+///Session R
+show_sesr = input(true, '', inline='sesr', group='Session R')
+sesr_txt = input('Daily M', '', inline='sesr', group='Session R')
+sesr_ses = input.session('0000-0600', '', inline='sesr', group='Session R')
+sesr_css = input.color(#b2b5be, '', inline='sesr', group='Session R')
+sesr_range = input(true, 'Range', inline='sesr_overlays', group='Session R')
+
+///Session S
+show_sess = input(true, '', inline='sess', group='Session S')
+sess_txt = input('Daily D', '', inline='sess', group='Session S')
+sess_ses = input.session('0600-1200', '', inline='sess', group='Session S')
+sess_css = input.color(#b2b5be, '', inline='sess', group='Session S')
+sess_range = input(true, 'Range', inline='sess_overlays', group='Session S')
+
+///Session T
+show_sest = input(true, '', inline='sest', group='Session T')
+sest_txt = input('Daily R', '', inline='sest', group='Session T')
+sest_ses = input.session('1200-1800', '', inline='sest', group='Session T')
+sest_css = input.color(#b2b5be, '', inline='sest', group='Session T')
+sest_range = input(true, 'Range', inline='sest_overlays', group='Session T')
+
+
+
+//Timezones
+tz_incr = input.int(-4, 'UTC (+/-)'
+  , group = 'Timezone')
+
+use_exchange = input(false, 'Use Exchange Timezone'
+  , group = 'Timezone')
+
+//Ranges Options
+bg_transp = input.float(90, 'Range Area Transparency'
+  , group = 'Ranges Settings')
+
+show_outline = input(true, 'Range Outline'
+  , group = 'Ranges Settings')
+
+show_txt = input(true, 'Range Label'
+  , group = 'Ranges Settings')
+
+
+//-----------------------------------------------------------------------------}
+//Functions
+//-----------------------------------------------------------------------------{
+n = bar_index
+
+//Set session range
+get_range(session, session_name, session_css)=>
+    var t = 0 
+    var max = high
+    var min = low
+    var box bx = na
+    var label lbl = na 
+    
+    if session > session[1]
+        t := time
+        max := high
+        min := low
+
+        bx := box.new(n, max, n, min
+          , bgcolor = color.new(session_css, bg_transp)
+          , border_color = show_outline ? session_css : na
+          , border_style = line.style_dotted)
+
+        if show_txt
+            lbl := label.new(t, max, session_name
+              , xloc = xloc.bar_time
+              , textcolor = session_css
+              , style = label.style_label_down
+              , color = color.new(color.white, 100)
+              , size = size.tiny)
+
+    if session and session == session[1]
+        max := math.max(high, max)
+        min := math.min(low, min)
+
+        box.set_top(bx, max)
+        box.set_rightbottom(bx, n, min)
+
+        if show_txt
+            label.set_xy(lbl, int(math.avg(t, time)), max)
+
+//-----------------------------------------------------------------------------}
+//Sessions
+//-----------------------------------------------------------------------------{
+tf = timeframe.period
+
+var tz = use_exchange ? syminfo.timezone :
+  str.format('UTC{0}{1}', tz_incr >= 0 ? '+' : '-', math.abs(tz_incr))
+
+is_sesa = math.sign(nz(time(tf, sesa_ses, tz)))
+is_sesb = math.sign(nz(time(tf, sesb_ses, tz)))
+is_sesc = math.sign(nz(time(tf, sesc_ses, tz)))
+is_sesd = math.sign(nz(time(tf, sesd_ses, tz)))
+is_sese = math.sign(nz(time(tf, sese_ses, tz)))
+is_sesf = math.sign(nz(time(tf, sesf_ses, tz)))
+is_sesg = math.sign(nz(time(tf, sesg_ses, tz)))
+is_sesh = math.sign(nz(time(tf, sesh_ses, tz)))
+is_sesi = math.sign(nz(time(tf, sesi_ses, tz)))
+is_sesj = math.sign(nz(time(tf, sesj_ses, tz)))
+is_sesk = math.sign(nz(time(tf, sesk_ses, tz)))
+is_sesl = math.sign(nz(time(tf, sesl_ses, tz)))
+is_sesm = math.sign(nz(time(tf, sesm_ses, tz)))
+is_sesn = math.sign(nz(time(tf, sesn_ses, tz)))
+is_seso = math.sign(nz(time(tf, seso_ses, tz)))
+is_sesp = math.sign(nz(time(tf, sesp_ses, tz)))
+is_sesq = math.sign(nz(time(tf, sesq_ses, tz)))
+is_sesr = math.sign(nz(time(tf, sesr_ses, tz)))
+is_sess = math.sign(nz(time(tf, sess_ses, tz)))
+is_sest = math.sign(nz(time(tf, sest_ses, tz)))
+
+//-----------------------------------------------------------------------------}
+//Overlays
+//-----------------------------------------------------------------------------{
+//Ranges
+if show_sesa and sesa_range
+    get_range(is_sesa, sesa_txt, sesa_css)
+
+if show_sesb and sesb_range
+    get_range(is_sesb, sesb_txt, sesb_css)
+
+if show_sesc and sesc_range
+    get_range(is_sesc, sesc_txt, sesc_css)
+
+if show_sesd and sesd_range
+    get_range(is_sesd, sesd_txt, sesd_css)
+
+if show_sese and sese_range
+    get_range(is_sese, sese_txt, sese_css)
+
+if show_sesf and sesf_range
+    get_range(is_sesf, sesf_txt, sesf_css)
+
+if show_sesg and sesg_range
+    get_range(is_sesg, sesg_txt, sesg_css)
+
+if show_sesh and sesh_range
+    get_range(is_sesh, sesh_txt, sesh_css)
+
+if show_sesi and sesi_range
+    get_range(is_sesi, sesi_txt, sesi_css)
+
+if show_sesj and sesj_range
+    get_range(is_sesj, sesj_txt, sesj_css)
+
+if show_sesk and sesk_range
+    get_range(is_sesk, sesk_txt, sesk_css)
+
+if show_sesl and sesl_range
+    get_range(is_sesl, sesl_txt, sesl_css)
+
+if show_sesm and sesm_range
+    get_range(is_sesm, sesm_txt, sesm_css)
+
+if show_sesn and sesn_range
+    get_range(is_sesn, sesn_txt, sesn_css)
+
+if show_seso and seso_range
+    get_range(is_seso, seso_txt, seso_css)
+
+if show_sesp and sesp_range
+    get_range(is_sesp, sesp_txt, sesp_css)
+
+if show_sesq and sesq_range
+    get_range(is_sesq, sesq_txt, sesq_css)
+
+if show_sesr and sesr_range
+    get_range(is_sesr, sesr_txt, sesr_css)
+
+if show_sess and sess_range
+    get_range(is_sess, sess_txt, sess_css)
+
+if show_sest and sest_range
+    get_range(is_sest, sest_txt, sest_css)
